@@ -40,6 +40,7 @@ class SignInFragment : Fragment() {
             val password = binding.etPassword.text.toString().trim()
 
             if(email.isNotEmpty() && password.isNotEmpty()) {
+                binding.LoginButton.visibility = View.INVISIBLE
                 binding.progressBarSignIn.visibility = View.VISIBLE
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if(it.isSuccessful){
@@ -48,11 +49,16 @@ class SignInFragment : Fragment() {
                     }else {
                         Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
                     }
+                    binding.LoginButton.visibility = View.VISIBLE
                     binding.progressBarSignIn.visibility = View.GONE
                 }
             }else {
                 Toast.makeText(context, "Please enter all fields", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.ForgotPasswordText.setOnClickListener {
+            navControl.navigate(R.id.action_signInFragment_to_resetPasswordFragment)
         }
 
         binding.SignUpIntentText.setOnClickListener {

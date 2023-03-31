@@ -18,4 +18,8 @@
     <string name="cancel">Cancel</string>
     <string name="logout">Logout</string>
     <string name="alert">Alert!</string>
+    <string name="forgot_npassword">Forgot \nPassword?</string>
+    <string name="email_id">Email ID</string>
+    <string name="password">Password</string>
+    <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Don\'t worry it happens. Please enter the address associated with your account.</string>
 </resources>
