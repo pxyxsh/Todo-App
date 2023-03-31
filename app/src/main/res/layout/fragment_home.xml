@@ -17,7 +17,7 @@
         android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
+        app:tint="@color/grey" />
 
     <ImageView
         android:id="@+id/imageView3"

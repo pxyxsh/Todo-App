@@ -43,6 +43,7 @@ class SignUpFragment : Fragment() {
 
             if(email.isNotEmpty() && password.isNotEmpty() && rePassword.isNotEmpty()){
                 if(password == rePassword) {
+                    binding.SignUpButton.visibility = View.INVISIBLE
                     binding.progressBarSignUp.visibility = View.VISIBLE
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                         if(it.isSuccessful){
@@ -50,8 +51,10 @@ class SignUpFragment : Fragment() {
                             navControl.navigate(R.id.action_signUpFragment_to_signInFragment)
                         }else{
                             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+                            binding.SignUpButton.visibility = View.VISIBLE
+                            binding.progressBarSignUp.visibility = View.GONE
                         }
-                        binding.progressBarSignUp.visibility = View.GONE
+
                     }
                 }else{
                     Toast.makeText(context, "Passwords do not match. Re-Enter the same password", Toast.LENGTH_SHORT).show()

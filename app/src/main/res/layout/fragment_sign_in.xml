@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/SignInIntentText"
+        android:id="@+id/SignInText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -23,6 +23,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.4" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:src="@drawable/sign_in_image"
+        app:layout_constraintBottom_toTopOf="@+id/SignInText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayoutCard"
         android:layout_width="0dp"
@@ -34,29 +44,29 @@
         android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SignInIntentText">
+        app:layout_constraintTop_toBottomOf="@+id/SignInText">
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/UsernameInputLayout"
             style="@style/InputLayoutStyle"
             app:layout_constraintBottom_toTopOf="@+id/PasswordInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/baseline_person_24">
+            app:startIconDrawable="@drawable/baseline_alternate_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 style="@style/EditTextStyle"
-                android:hint="@string/enter_email_id"
+                android:hint="@string/email_id"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/PasswordInputLayout"
             style="@style/InputLayoutStyle"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/LoginButton"
+            app:layout_constraintBottom_toTopOf="@+id/ForgotPasswordText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/UsernameInputLayout"
@@ -67,9 +77,54 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 style="@style/EditTextStyle"
-                android:hint="@string/enter_password"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/LoginButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/SignUpIntentText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarSignIn"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:indeterminateTint="@color/blue"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/SignUpIntentText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/ForgotPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="Forgot Password?"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/LoginButton"
+            app:layout_constraintEnd_toEndOf="@+id/PasswordInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/PasswordInputLayout" />
 
         <TextView
             android:id="@+id/SignUpIntentText"
@@ -100,46 +155,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/LoginButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="@color/blue"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/SignUpIntentText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBarSignIn"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/blue"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayoutCard" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:src="@drawable/sign_in_image"
-        app:layout_constraintBottom_toTopOf="@+id/SignInIntentText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
