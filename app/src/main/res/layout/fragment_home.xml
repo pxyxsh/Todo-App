@@ -17,17 +17,16 @@
         android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/grey" />
+        app:tint="@color/light_grey" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:src="@drawable/task_image"
+        android:src="@drawable/task_done_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
-
 
 
     <com.facebook.shimmer.ShimmerFrameLayout

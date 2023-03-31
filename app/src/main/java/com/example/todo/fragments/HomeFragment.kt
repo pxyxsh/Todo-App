@@ -1,12 +1,11 @@
 package com.example.todo.fragments
 
 import android.annotation.SuppressLint
-import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -16,6 +15,7 @@ import com.example.todo.R
 import com.example.todo.databinding.FragmentHomeBinding
 import com.example.todo.utils.TodoAdapter
 import com.example.todo.utils.TodoData
+import com.example.todo.utils.TodoState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -24,14 +24,15 @@ import com.google.firebase.database.*
 class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     TodoAdapter.TodoAdapterClickInterface, LogOutPopupFragment.LogoutInterface {
 
-    private lateinit var auth : FirebaseAuth
-    private lateinit var binding : FragmentHomeBinding
-    private lateinit var navControl : NavController
-    private lateinit var databaseRef : DatabaseReference
-    private var popUpFragment : AddTodoFragment? = null
-    private lateinit var adapter : TodoAdapter
-    private lateinit var mList : MutableList<TodoData>
-    private lateinit var logoutPopup : LogOutPopupFragment
+    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var navControl: NavController
+    private lateinit var databaseRef: DatabaseReference
+    private var popUpFragment: AddTodoFragment? = null
+    private lateinit var adapter: TodoAdapter
+    private lateinit var mList: MutableList<TodoData>
+    private lateinit var logoutPopup: LogOutPopupFragment
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,18 +52,27 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     }
 
     private fun getDataFromFirebase() {
-        databaseRef.addValueEventListener(object : ValueEventListener{
+        databaseRef.addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("Home14", "onDataChange: start")
                 mList.clear()
-                for(taskSnapshot in snapshot.children) {
-                    val todoTask = taskSnapshot.key?.let {
-                        TodoData(it, taskSnapshot.value.toString())
+                for (taskSnapshot in snapshot.children) {
+                    if (taskSnapshot.child("task").value.toString().isNotEmpty()) {
+                        val todoTask = taskSnapshot.key?.let {
+                            TodoData(
+                                it,
+                                taskSnapshot.child("task").value.toString(),
+                                taskSnapshot.child("checked").value.toString().toBoolean()
+                            )
+                        }
+                        if (todoTask != null) {
+                            mList.add(todoTask)
+                        }
                     }
-                    if(todoTask != null){
-                        mList.add(todoTask)
-                    }
+                    Log.d("Home14", "onDataChange: success")
                 }
+                Log.d("Home14", "onDataChange: end")
                 binding.shimmerViewContainer.stopShimmer()
                 binding.shimmerViewContainer.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
@@ -77,8 +87,8 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     }
 
     private fun registerEvents() {
-        binding.addHomeButton.setOnClickListener{
-            if(popUpFragment != null)
+        binding.addHomeButton.setOnClickListener {
+            if (popUpFragment != null)
                 childFragmentManager.beginTransaction().remove(popUpFragment!!).commit()
             popUpFragment = AddTodoFragment()
             popUpFragment!!.setListener(this)
@@ -100,7 +110,8 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     private fun init(view: View) {
         auth = FirebaseAuth.getInstance()
         navControl = Navigation.findNavController(view)
-        databaseRef = FirebaseDatabase.getInstance().reference.child("Tasks").child(auth.currentUser?.uid.toString())
+        databaseRef = FirebaseDatabase.getInstance().reference.child("Tasks")
+            .child(auth.currentUser?.uid.toString())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -110,57 +121,72 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     }
 
     override fun onSaveTask(todo: String, todoEt: TextInputEditText) {
-        databaseRef.push().setValue(todo).addOnCompleteListener {
+        val task = TodoState(todo, false)
+        databaseRef.push().setValue(task).addOnCompleteListener {
             if (it.isSuccessful) {
+                Log.d("Home14", "onSaveTask: success")
                 Toast.makeText(context, "Task saved successfully", Toast.LENGTH_SHORT).show()
                 todoEt.text?.clear()
             } else {
+                Log.d("Home14", "onSaveTask: fail")
                 Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
             }
             popUpFragment!!.dismiss()
         }
+        Log.d("Home14", "onSaveTask: complete")
     }
 
     override fun onUpdateTask(todoData: TodoData, todoEt: TextInputEditText) {
         val map = HashMap<String, Any>()
-        map[todoData.taskId] = todoData.task
+        val todoState = TodoState(todoData.task, false)
+        map[todoData.taskId] = todoState
         databaseRef.updateChildren(map).addOnCompleteListener {
-            if(it.isSuccessful) {
+            if (it.isSuccessful) {
+                Log.d("Home14", "onUpdateTask: success")
                 Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show()
 
-            }else{
+            } else {
+                Log.d("Home14", "onUpdateTask: fail")
                 Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
             }
         }
         todoEt.text?.clear()
         popUpFragment?.dismiss()
+        Log.d("Home14", "onUpdateTask: complete")
     }
 
     override fun onDeleteTaskButtonClicked(todoData: TodoData) {
         databaseRef.child(todoData.taskId).removeValue().addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
+                Log.d("Home14", "onDeleteTaskButtonClicked: success")
                 Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
+                Log.d("Home14", "onDeleteTaskButtonClicked: fail")
                 Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+        Log.d("Home14", "onDeleteTaskButtonClicked: complete")
     }
 
     override fun onEditTaskButtonClicked(todoData: TodoData) {
-        if(popUpFragment != null)
+        if (popUpFragment != null)
             childFragmentManager.beginTransaction().remove(popUpFragment!!).commit()
 
         popUpFragment = AddTodoFragment.newInstance(todoData.taskId, todoData.task)
         popUpFragment!!.setListener(this)
-        popUpFragment!!.show(childFragmentManager,AddTodoFragment.TAG)
+        popUpFragment!!.show(childFragmentManager, AddTodoFragment.TAG)
     }
 
-    override fun onCheckChange(isChecked: Boolean, taskTextView: TextView) {
-        if(isChecked){
-            taskTextView.paintFlags = taskTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        }else{
-            taskTextView.paintFlags = taskTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    override fun onCheckChange(todoData: TodoData, isChecked: Boolean) {
+        databaseRef.child(todoData.taskId).child("checked").setValue(isChecked).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.d("Home14", "onCheckChange: success")
+            }else{
+                Log.d("Home14", "onCheckChange: fail")
+                Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
+        Log.d("Home14", "onCheckChange: complete")
     }
 
     override fun logout() {

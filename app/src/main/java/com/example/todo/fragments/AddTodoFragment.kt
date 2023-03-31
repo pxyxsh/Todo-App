@@ -44,7 +44,8 @@ class AddTodoFragment : DialogFragment() {
         if (arguments != null) {
             todoData = TodoData(
                 arguments?.getString("taskId").toString(),
-                arguments?.getString("task").toString()
+                arguments?.getString("task").toString(),
+                false
             )
             binding.etTask.setText(todoData?.task)
         }

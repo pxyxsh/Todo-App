@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.todo.R
-import com.example.todo.databinding.FragmentResetPasswordBinding
+import com.example.todo.databinding.FragmentForgotPasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 
 
-class ResetPasswordFragment : Fragment() {
+class ForgotPasswordFragment : Fragment() {
 
-    private lateinit var binding : FragmentResetPasswordBinding
+    private lateinit var binding : FragmentForgotPasswordBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var navControl: NavController
 
@@ -24,7 +24,7 @@ class ResetPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
