@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="EditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="InputLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="hintTextColor">@color/grey</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="startIconTint">@color/grey</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="AddTodoEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border_rect</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:paddingVertical" tools:targetApi="o">12dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AddTodoLayoutStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="background">@drawable/border_rect</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="hintTextColor">@color/grey</item>
+        <item name="startIconTint">@color/blue</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="MyAlertDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

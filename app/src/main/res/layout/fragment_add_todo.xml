@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    app:strokeWidth="4dp"
+    tools:context=".fragments.AddTodoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/closeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/baseline_close_24"
+            app:layout_constraintBottom_toTopOf="@+id/todoText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/grey"
+            tools:ignore="UseAppTint" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/todoText"
+            style="@style/AddTodoLayoutStyle"
+            android:layout_width="330dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/todoNextButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/closeButton"
+            app:startIconDrawable="@drawable/baseline_playlist_add_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTask"
+                style="@style/AddTodoEditTextStyle"
+                android:hint="@string/type_your_task"
+                android:inputType="textMultiLine"
+                android:minLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/todoNextButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todoText"
+            app:srcCompat="@drawable/baseline_arrow_circle_right_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
