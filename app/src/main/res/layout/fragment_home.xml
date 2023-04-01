@@ -68,6 +68,7 @@
         android:background="@color/lightest_grey"
         android:fadeScrollbars="true"
         android:isScrollContainer="true"
+        android:layoutAnimation="@anim/layout_animation"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
         android:scrollbarDefaultDelayBeforeFade="500"
