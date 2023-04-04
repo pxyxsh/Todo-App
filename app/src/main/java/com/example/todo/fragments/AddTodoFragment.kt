@@ -14,7 +14,7 @@ class AddTodoFragment : DialogFragment() {
 
     private lateinit var binding: FragmentAddTodoBinding
     private lateinit var listener: DialogNextButtonClickListener
-    var todoData: TodoData? = null
+    private var todoData: TodoData? = null
 
     fun setListener(listener: DialogNextButtonClickListener) {
         this.listener = listener
@@ -68,8 +68,10 @@ class AddTodoFragment : DialogFragment() {
             }
         }
         binding.closeButton.setOnClickListener {
+
             dismiss()
         }
+
     }
 
     interface DialogNextButtonClickListener {

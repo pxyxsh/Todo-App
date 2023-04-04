@@ -1,16 +1,20 @@
 package com.example.todo.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.databinding.FragmentHomeBinding
 import com.example.todo.utils.TodoAdapter
@@ -19,6 +23,8 @@ import com.example.todo.utils.TodoState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import java.util.*
 
 
 class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
@@ -49,6 +55,50 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
         init(view)
         getDataFromFirebase()
         registerEvents()
+        rearrangeRecyclerView()
+    }
+
+    private fun rearrangeRecyclerView() {
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                source: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val sourcePosition = source.absoluteAdapterPosition
+                val targetPosition = target.absoluteAdapterPosition
+                Collections.swap(mList, sourcePosition, targetPosition)
+                adapter.notifyItemMoved(sourcePosition, targetPosition)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onDeleteTaskButtonClicked(mList[viewHolder.absoluteAdapterPosition])
+            }
+
+            override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+                RecyclerViewSwipeDecorator.Builder(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+                    .addBackgroundColor(ContextCompat.getColor(context!!, R.color.red))
+                    .addActionIcon(R.drawable.baseline_delete_24)
+                    .addSwipeLeftCornerRadius(16,16F)
+                    .addCornerRadius(1,16)
+                    .create()
+                    .decorate()
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        })
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     private fun getDataFromFirebase() {
@@ -73,6 +123,7 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
                     Log.d("Home14", "onDataChange: success")
                 }
                 Log.d("Home14", "onDataChange: end")
+
                 binding.shimmerViewContainer.stopShimmer()
                 binding.shimmerViewContainer.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
@@ -178,14 +229,16 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
     }
 
     override fun onCheckChange(todoData: TodoData, isChecked: Boolean) {
-        databaseRef.child(todoData.taskId).child("checked").setValue(isChecked).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Log.d("Home14", "onCheckChange: success")
-            }else{
-                Log.d("Home14", "onCheckChange: fail")
-                Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
+        databaseRef.child(todoData.taskId).child("checked").setValue(isChecked)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("Home14", "onCheckChange: success")
+                } else {
+                    Log.d("Home14", "onCheckChange: fail")
+                    Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
-        }
         Log.d("Home14", "onCheckChange: complete")
     }
 

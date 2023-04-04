@@ -29,12 +29,29 @@
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
 
+    <TextView
+        android:id="@+id/tvNoTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="You are done for the day\nNo more tasks today!"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/addHomeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/lightest_grey"
-        app:layout_constraintBottom_toTopOf="@+id/addHomeButton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
@@ -58,6 +75,7 @@
             <include layout="@layout/list_item_shimmer" />
 
             <include layout="@layout/list_item_shimmer" />
+
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -65,7 +83,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/lightest_grey"
+        android:background="@color/white"
         android:fadeScrollbars="true"
         android:isScrollContainer="true"
         android:layoutAnimation="@anim/layout_animation"
@@ -80,22 +98,30 @@
         android:scrollbars="vertical"
         android:verticalScrollbarPosition="right"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/addHomeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addHomeButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:elevation="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foregroundTint="@color/white"
+        android:src="@drawable/add_image"
+        app:tint="@color/white"
+        app:backgroundTint="@color/blue"
+        app:elevation="4dp"
+        android:contentDescription="@string/add_task"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/baseline_add_circle_24" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

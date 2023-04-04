@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.40" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayoutCard"
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
         android:paddingTop="32dp"
         android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SignUpTextView">
 
@@ -156,8 +157,6 @@
             app:layout_constraintStart_toEndOf="@+id/InfoTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <ImageView
         android:id="@+id/imageView"

@@ -22,4 +22,6 @@
     <string name="email_id">Email ID</string>
     <string name="password">Password</string>
     <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Don\'t worry it happens. Please enter the address associated with your account.</string>
+    <string name="add_new_task">Add new task</string>
+    <string name="add_task">Add task</string>
 </resources>

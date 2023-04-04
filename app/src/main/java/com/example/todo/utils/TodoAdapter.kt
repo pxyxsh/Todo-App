@@ -19,7 +19,6 @@ class TodoAdapter(private val list: MutableList<TodoData>) :
     }
 
     class TodoViewHolder(binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val deleteButton: ImageView = binding.deleteImage
         val taskText: TextView = binding.TaskView
         val taskCheckBox: CheckBox = binding.checkBox
     }
@@ -39,9 +38,6 @@ class TodoAdapter(private val list: MutableList<TodoData>) :
                 taskText.text = this.task
                 taskCheckBox.isChecked = this.checked
                 putStrikethrough(this.checked, taskText)
-                deleteButton.setOnClickListener {
-                    listener?.onDeleteTaskButtonClicked(this)
-                }
                 taskText.setOnClickListener {
                     listener?.onEditTaskButtonClicked(this)
                 }
