@@ -24,7 +24,7 @@ A simple todo app that stores your tasks.
 <img src="https://user-images.githubusercontent.com/97607457/229368368-99b6d40f-76c3-4eec-9d88-032ea69566b1.png" width="300" height="660">
 
 ### Todo Screen
-<img src="https://user-images.githubusercontent.com/97607457/229368262-3655bdd6-d1de-43d9-9856-e589ab174722.png" width="300" height="660">
+<img src="https://user-images.githubusercontent.com/97607457/229918987-498ba2b3-2439-4dec-9f6b-9480cbf438fb.png" width="300" height="660">
 
 ### Logout Alert Dialog Box
 <img src="https://user-images.githubusercontent.com/97607457/229368372-a8469284-466e-476c-9ddf-85707b062277.png" width="300" height="660">
