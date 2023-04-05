@@ -6,7 +6,7 @@ A simple todo app that stores your tasks.
 2. Firebase Auth
 3. Firebase Realtime Database
 4. Strikethrough Feature
-5. Alert Dialog Box
+5. Dialog Box
 
 
 ## App UI
