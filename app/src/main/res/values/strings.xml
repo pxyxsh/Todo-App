@@ -24,4 +24,10 @@
     <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Don\'t worry it happens. Please enter the address associated with your account.</string>
     <string name="add_new_task">Add new task</string>
     <string name="add_task">Add task</string>
+    <string name="no_tasks">Task-free zone alert! \n Add some and let the productivity flow</string>
+    <string name="save">Save</string>
+    <string name="enter_task_here">Enter task here</string>
+    <string name="close_add_task_dialog_box">Close Add Task Dialog Box</string>
+    <string name="logout_">Logout</string>
+    <string name="homepage_image">Homepage Image</string>
 </resources>

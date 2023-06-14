@@ -22,7 +22,7 @@ class SignInFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,7 +44,7 @@ class SignInFragment : Fragment() {
                 binding.progressBarSignIn.visibility = View.VISIBLE
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if(it.isSuccessful){
-                        Toast.makeText(context, "Signed in successfully", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Signed in successfully", Toast.LENGTH_SHORT).show()
                         navControl.navigate(R.id.action_signInFragment_to_homeFragment)
                     }else {
                         Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()

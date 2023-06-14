@@ -128,6 +128,13 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
                 binding.shimmerViewContainer.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
                 adapter.notifyDataSetChanged()
+                if(mList.isEmpty()){
+                    binding.recyclerView.visibility = View.GONE
+                    binding.tvNoTask.visibility = View.VISIBLE
+                }else{
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.tvNoTask.visibility = View.GONE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -156,6 +163,27 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
                 "LogoutPopup"
             )
         }
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            val addButton = binding.addHomeButton
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!binding.recyclerView.canScrollVertically(-1)){
+                    addButton.show()
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if(dy > 10 && addButton.isShown){
+                    addButton.hide()
+                }
+                else if(dy < -10 && !addButton.isShown){
+                    addButton.show()
+                }
+            }
+        })
     }
 
     private fun init(view: View) {
@@ -176,7 +204,7 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
         databaseRef.push().setValue(task).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("Home14", "onSaveTask: success")
-                Toast.makeText(context, "Task saved successfully", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Task saved successfully", Toast.LENGTH_SHORT).show()
                 todoEt.text?.clear()
             } else {
                 Log.d("Home14", "onSaveTask: fail")
@@ -194,7 +222,7 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
         databaseRef.updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("Home14", "onUpdateTask: success")
-                Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show()
 
             } else {
                 Log.d("Home14", "onUpdateTask: fail")
@@ -210,7 +238,7 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
         databaseRef.child(todoData.taskId).removeValue().addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("Home14", "onDeleteTaskButtonClicked: success")
-                Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show()
             } else {
                 Log.d("Home14", "onDeleteTaskButtonClicked: fail")
                 Toast.makeText(context, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
