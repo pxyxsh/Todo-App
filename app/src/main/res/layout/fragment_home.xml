@@ -17,7 +17,8 @@
         android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/light_grey" />
+        app:tint="@color/light_grey"
+        android:contentDescription="@string/logout_"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -26,7 +27,8 @@
         android:src="@drawable/task_done_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        android:contentDescription="@string/homepage_image"/>
 
 
     <TextView
@@ -35,10 +37,10 @@
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="You are done for the day\nNo more tasks today!"
+        android:text="@string/no_tasks"
         android:textAlignment="center"
         android:textColor="@color/blue"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/addHomeButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +51,7 @@
         android:id="@+id/shimmer_view_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/lightest_grey"
+        android:background="@color/white"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

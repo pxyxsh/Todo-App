@@ -54,7 +54,7 @@ class AddTodoFragment : DialogFragment() {
 
 
     private fun registerEvents() {
-        binding.todoNextButton.setOnClickListener {
+        binding.SaveButton.setOnClickListener {
             val todoTask = binding.etTask.text.toString()
             if (todoTask.isNotEmpty()) {
                 if(todoData == null){
@@ -63,12 +63,12 @@ class AddTodoFragment : DialogFragment() {
                     todoData?.task = todoTask
                     listener.onUpdateTask(todoData!!,binding.etTask)
                 }
+                dismiss()
             } else {
                 Toast.makeText(context, "Please type some task", Toast.LENGTH_SHORT).show()
             }
         }
         binding.closeButton.setOnClickListener {
-
             dismiss()
         }
 
