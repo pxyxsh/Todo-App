@@ -184,6 +184,23 @@ class HomeFragment : Fragment(), AddTodoFragment.DialogNextButtonClickListener,
                 }
             }
         })
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val addButton = binding.addHomeButton
+                if(dy > 10 && addButton.isShown){
+                    addButton.hide()
+                }
+                else if(dy < -10 && !addButton.isShown){
+                    addButton.show()
+                }
+            }
+        })
     }
 
     private fun init(view: View) {
